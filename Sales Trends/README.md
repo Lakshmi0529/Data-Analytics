@@ -1,1 +1,1 @@
-
+The purpose of this project is to analyze sales trends based on customer type, product type, and product segment. And to calculate various metrics such as sales trends(Quarterly, Annually, and monthly). Generate reports to visualize the same using TABLEAU or POWER BI.
