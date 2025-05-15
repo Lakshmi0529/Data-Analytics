@@ -79,7 +79,7 @@ monthly_sales = select(
 .order_by(full_sales.c.CalendarYear,full_sales.c.MonthNumberOfYear)
 
 monthly_sales_df = pd.read_sql(monthly_sales,engine)
-# monthly_sales_df.to_csv('monthly_sales.csv')
+monthly_sales_df.to_csv('monthly_sales.csv')
 
     # Product Category Performance
 category_performance = select(
@@ -92,7 +92,7 @@ category_performance = select(
     .order_by(func.sum(full_sales.c.SalesAmount).desc())
 
 category_df = pd.read_sql(category_performance,engine)
-# category_df.to_csv('category_sales.csv')
+category_df.to_csv('category_sales.csv')
 
     # Sales by Territory
 territory_sales = select(
@@ -105,7 +105,7 @@ territory_sales = select(
                          .order_by(func.sum(full_sales.c.SalesAmount).desc())
 
 territory_df = pd.read_sql(territory_sales,engine)
-# territory_df.to_csv('sales_territory.csv')
+territory_df.to_csv('sales_territory.csv')
 
 # Recency, Frequency, Monetary Value (RFM Analysis)
     # getting the most recent order date
@@ -141,7 +141,7 @@ segment_map = {
 }
 
 rfm_df['segment'] = rfm_df['rfm_score'].replace(segment_map,regex=True)
-# rfm_df.to_csv('rfm_1.csv')
+rfm_df.to_csv('rfm.csv')
 
 # Customer Demographic Insights
 income_cte = select(
@@ -165,8 +165,7 @@ income_spending = select(
 ).select_from(income_cte).order_by(income_cte.c.total_spend.desc())
 
 income_df = pd.read_sql(income_spending,engine)
-print(income_df)
-# income_df.to_csv('customer_spend.csv')
+income_df.to_csv('customer_spend.csv')
 
 # Product Profitability Analysis
 product_profitability = select(
@@ -182,7 +181,7 @@ product_profitability = select(
                          .order_by(((func.sum(full_sales.c.SalesAmount)-func.sum(full_sales.c.TotalProductCost))/func.sum(full_sales.c.SalesAmount)).desc())
 
 profitability_df = pd.read_sql(product_profitability,engine)
-# profitability_df.to_csv('profits.csv')
+profitability_df.to_csv('profits.csv')
 
 # Time-Based Analysis
 
@@ -196,4 +195,4 @@ yoy_growth = select(
                          .order_by(full_sales.c.CalendarQuarter,full_sales.c.CalendarYear)
 
 yoy_df = pd.read_sql(yoy_growth,engine)
-# yoy_df.to_csv('sales_growth.csv')
+yoy_df.to_csv('sales_growth.csv')
